@@ -132,7 +132,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8">
+                    <navigationItem key="navigationItem" title="MQTT Rooms" id="Zdf-7t-Un8">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="lQH-id-gB4">
                             <connections>
                                 <segue destination="2NE-L0-Wbd" kind="showDetail" id="PEa-3G-XUD"/>

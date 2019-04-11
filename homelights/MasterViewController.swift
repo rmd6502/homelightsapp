@@ -37,15 +37,9 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         mqtt.delegate = self
         navigationItem.leftBarButtonItem = editButtonItem
 
+        setTitleAndRooms()
         NotificationCenter.default.addObserver(self, selector: #selector(self.colorChanged), name: ColorNotification, object: nil)
-
-        if let rooms = UserDefaults.standard.array(forKey: "rooms") {
-            for roomV in rooms {
-                if let room = roomV as? String {
-                    insertNewObject(room)
-                }
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(setTitleAndRooms), name: UserDefaults.didChangeNotification, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,10 +49,12 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
 
     @objc
     func insertNewObject(_ label: String) {
-        self.mqtt.addRoom(room: label)
-        objects.insert(label, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        if !objects.contains(label) {
+            self.mqtt.addRoom(room: label)
+            objects.insert(label, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
     }
 
     @objc
@@ -66,6 +62,20 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
+    }
+
+    @objc
+    func setTitleAndRooms() {
+        if let title = UserDefaults.standard.string(forKey: "baseMqttClient") {
+            self.title = title
+        }
+        if let rooms = UserDefaults.standard.array(forKey: "rooms") {
+            for roomV in rooms {
+                if let room = roomV as? String {
+                    insertNewObject(room)
+                }
+            }
+        }
     }
 
     // MARK: - Segues
