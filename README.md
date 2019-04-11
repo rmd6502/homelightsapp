@@ -1,4 +1,4 @@
 # homelightsapp
 Control MQTT lights
 
-More to come, incliding hopefully a youtube video!
+More to come, including hopefully a youtube video!
