@@ -8,22 +8,43 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+let ColorNotification = NSNotification.Name(rawValue: "ColorChanged")
+
+class MasterViewController: UITableViewController, MQTTHandlerDelegate {
+    func didConnect() {
+        self.tableView.allowsSelection = true
+        self.spinner.stopAnimating()
+    }
+
+    func didDisconnect() {
+        self.tableView.allowsSelection = false
+        self.spinner.startAnimating()
+    }
+
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
-
+    var objects = [String]()
+    let mqtt = MQTTHandler()
+    let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.tableView.allowsSelection = false
+        self.tableView.addSubview(spinner)
+        spinner.center = self.tableView.center
+        spinner.startAnimating()
+        mqtt.delegate = self
         navigationItem.leftBarButtonItem = editButtonItem
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        NotificationCenter.default.addObserver(self, selector: #selector(self.colorChanged), name: ColorNotification, object: nil)
+
+        if let rooms = UserDefaults.standard.array(forKey: "rooms") {
+            for roomV in rooms {
+                if let room = roomV as? String {
+                    insertNewObject(room)
+                }
+            }
         }
     }
 
@@ -33,10 +54,18 @@ class MasterViewController: UITableViewController {
     }
 
     @objc
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
+    func insertNewObject(_ label: String) {
+        self.mqtt.addRoom(room: label)
+        objects.insert(label, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+
+    @objc
+    func colorChanged(notification : Notification) {
+        DispatchQueue.main.async(execute: {
+            self.tableView.reloadData()
+        })
     }
 
     // MARK: - Segues
@@ -44,9 +73,10 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let object = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
+                controller.mqtt = mqtt
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -66,8 +96,10 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        cell.textLabel!.text = objects[indexPath.row]
+        if let lightColor = self.mqtt.getColor(room: objects[indexPath.row]) {
+            cell.contentView.viewWithTag(42)!.backgroundColor = lightColor
+        }
         return cell
     }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F573F90C3B1E9DA87C04DEA /* Pods_homelights.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A0F6A0493BEC58EEC83BF97 /* Pods_homelights.framework */; };
 		9C30AC7D22518B8B00E5EEB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30AC7C22518B8B00E5EEB4 /* AppDelegate.swift */; };
 		9C30AC7F22518B8B00E5EEB4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30AC7E22518B8B00E5EEB4 /* MasterViewController.swift */; };
 		9C30AC8122518B8B00E5EEB4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30AC8022518B8B00E5EEB4 /* DetailViewController.swift */; };
@@ -15,6 +16,10 @@
 		9C30AC8922518B8C00E5EEB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C30AC8722518B8C00E5EEB4 /* LaunchScreen.storyboard */; };
 		9C30AC9422518B8C00E5EEB4 /* homelightsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30AC9322518B8C00E5EEB4 /* homelightsTests.swift */; };
 		9C30AC9F22518B8C00E5EEB4 /* homelightsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30AC9E22518B8C00E5EEB4 /* homelightsUITests.swift */; };
+		9C30ACAD2251C40400E5EEB4 /* MQTTHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C30ACAC2251C40400E5EEB4 /* MQTTHandler.swift */; };
+		9CC5DFFC225AE407004964F2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC5DFFB225AE407004964F2 /* SettingsViewController.swift */; };
+		BC4014C209EC7962A97B69C1 /* Pods_homelightsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C77435D13FB76CA902275FF3 /* Pods_homelightsUITests.framework */; };
+		DC5F481E9B4390F0A6C59310 /* Pods_homelightsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB5B4A08A0D90C5F768D72F /* Pods_homelightsTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22A28218F7E7145B15D11CD2 /* Pods-homelightsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelightsUITests.debug.xcconfig"; path = "Target Support Files/Pods-homelightsUITests/Pods-homelightsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4746C2CF08CA22B81A8B79B7 /* Pods-homelightsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelightsTests.debug.xcconfig"; path = "Target Support Files/Pods-homelightsTests/Pods-homelightsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A0F6A0493BEC58EEC83BF97 /* Pods_homelights.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_homelights.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		814D66196774BF034BEC8D7B /* Pods-homelightsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelightsTests.release.xcconfig"; path = "Target Support Files/Pods-homelightsTests/Pods-homelightsTests.release.xcconfig"; sourceTree = "<group>"; };
+		914BC8605E48DF80E3EB193F /* Pods-homelights.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelights.debug.xcconfig"; path = "Target Support Files/Pods-homelights/Pods-homelights.debug.xcconfig"; sourceTree = "<group>"; };
 		9C30AC7922518B8B00E5EEB4 /* homelights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = homelights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C30AC7C22518B8B00E5EEB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C30AC7E22518B8B00E5EEB4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +59,12 @@
 		9C30AC9A22518B8C00E5EEB4 /* homelightsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = homelightsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C30AC9E22518B8C00E5EEB4 /* homelightsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homelightsUITests.swift; sourceTree = "<group>"; };
 		9C30ACA022518B8C00E5EEB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C30ACAC2251C40400E5EEB4 /* MQTTHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTHandler.swift; sourceTree = "<group>"; };
+		9CC5DFFB225AE407004964F2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		AD216C8A5307343048EAB1F7 /* Pods-homelightsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelightsUITests.release.xcconfig"; path = "Target Support Files/Pods-homelightsUITests/Pods-homelightsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C77435D13FB76CA902275FF3 /* Pods_homelightsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_homelightsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1C45AF4A5E9E67390888617 /* Pods-homelights.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-homelights.release.xcconfig"; path = "Target Support Files/Pods-homelights/Pods-homelights.release.xcconfig"; sourceTree = "<group>"; };
+		EAB5B4A08A0D90C5F768D72F /* Pods_homelightsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_homelightsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F573F90C3B1E9DA87C04DEA /* Pods_homelights.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC5F481E9B4390F0A6C59310 /* Pods_homelightsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +88,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC4014C209EC7962A97B69C1 /* Pods_homelightsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33BA921B8E52DBF38B39948E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				914BC8605E48DF80E3EB193F /* Pods-homelights.debug.xcconfig */,
+				E1C45AF4A5E9E67390888617 /* Pods-homelights.release.xcconfig */,
+				4746C2CF08CA22B81A8B79B7 /* Pods-homelightsTests.debug.xcconfig */,
+				814D66196774BF034BEC8D7B /* Pods-homelightsTests.release.xcconfig */,
+				22A28218F7E7145B15D11CD2 /* Pods-homelightsUITests.debug.xcconfig */,
+				AD216C8A5307343048EAB1F7 /* Pods-homelightsUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9C30AC7022518B8B00E5EEB4 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +115,8 @@
 				9C30AC9222518B8C00E5EEB4 /* homelightsTests */,
 				9C30AC9D22518B8C00E5EEB4 /* homelightsUITests */,
 				9C30AC7A22518B8B00E5EEB4 /* Products */,
+				33BA921B8E52DBF38B39948E /* Pods */,
+				F7318C738EEE8483D9928C4B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +140,8 @@
 				9C30AC8522518B8C00E5EEB4 /* Assets.xcassets */,
 				9C30AC8722518B8C00E5EEB4 /* LaunchScreen.storyboard */,
 				9C30AC8A22518B8C00E5EEB4 /* Info.plist */,
+				9C30ACAC2251C40400E5EEB4 /* MQTTHandler.swift */,
+				9CC5DFFB225AE407004964F2 /* SettingsViewController.swift */,
 			);
 			path = homelights;
 			sourceTree = "<group>";
@@ -128,6 +164,16 @@
 			path = homelightsUITests;
 			sourceTree = "<group>";
 		};
+		F7318C738EEE8483D9928C4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A0F6A0493BEC58EEC83BF97 /* Pods_homelights.framework */,
+				EAB5B4A08A0D90C5F768D72F /* Pods_homelightsTests.framework */,
+				C77435D13FB76CA902275FF3 /* Pods_homelightsUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C30ACA322518B8C00E5EEB4 /* Build configuration list for PBXNativeTarget "homelights" */;
 			buildPhases = (
+				A966D6EA3A52F3032E47FDE0 /* [CP] Check Pods Manifest.lock */,
 				9C30AC7522518B8B00E5EEB4 /* Sources */,
 				9C30AC7622518B8B00E5EEB4 /* Frameworks */,
 				9C30AC7722518B8B00E5EEB4 /* Resources */,
+				73EB57192D00D385F12E17BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +200,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C30ACA622518B8C00E5EEB4 /* Build configuration list for PBXNativeTarget "homelightsTests" */;
 			buildPhases = (
+				04E21133FF8848937F65FFBF /* [CP] Check Pods Manifest.lock */,
 				9C30AC8B22518B8C00E5EEB4 /* Sources */,
 				9C30AC8C22518B8C00E5EEB4 /* Frameworks */,
 				9C30AC8D22518B8C00E5EEB4 /* Resources */,
@@ -170,6 +219,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C30ACA922518B8C00E5EEB4 /* Build configuration list for PBXNativeTarget "homelightsUITests" */;
 			buildPhases = (
+				1E97F48441B99FAE524CA7E8 /* [CP] Check Pods Manifest.lock */,
 				9C30AC9622518B8C00E5EEB4 /* Sources */,
 				9C30AC9722518B8C00E5EEB4 /* Frameworks */,
 				9C30AC9822518B8C00E5EEB4 /* Resources */,
@@ -254,13 +304,110 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		04E21133FF8848937F65FFBF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-homelightsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1E97F48441B99FAE524CA7E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-homelightsUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73EB57192D00D385F12E17BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-homelights/Pods-homelights-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaMQTT/CocoaMQTT.framework",
+				"${BUILT_PRODUCTS_DIR}/FlexColorPicker/FlexColorPicker.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaMQTT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexColorPicker.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-homelights/Pods-homelights-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A966D6EA3A52F3032E47FDE0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-homelights-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9C30AC7522518B8B00E5EEB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C30ACAD2251C40400E5EEB4 /* MQTTHandler.swift in Sources */,
 				9C30AC8122518B8B00E5EEB4 /* DetailViewController.swift in Sources */,
 				9C30AC7F22518B8B00E5EEB4 /* MasterViewController.swift in Sources */,
+				9CC5DFFC225AE407004964F2 /* SettingsViewController.swift in Sources */,
 				9C30AC7D22518B8B00E5EEB4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +514,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +569,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -434,16 +581,18 @@
 		};
 		9C30ACA422518B8C00E5EEB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 914BC8605E48DF80E3EB193F /* Pods-homelights.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QVSQY52MWK;
+				DEVELOPMENT_TEAM = FVUL5RDR4A;
 				INFOPLIST_FILE = homelights/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.robertdiamond.homelights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.robertdiamond917.homelights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -452,16 +601,18 @@
 		};
 		9C30ACA522518B8C00E5EEB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C45AF4A5E9E67390888617 /* Pods-homelights.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QVSQY52MWK;
+				DEVELOPMENT_TEAM = FVUL5RDR4A;
 				INFOPLIST_FILE = homelights/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.robertdiamond.homelights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.robertdiamond917.homelights;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -470,6 +621,7 @@
 		};
 		9C30ACA722518B8C00E5EEB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4746C2CF08CA22B81A8B79B7 /* Pods-homelightsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -491,6 +643,7 @@
 		};
 		9C30ACA822518B8C00E5EEB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 814D66196774BF034BEC8D7B /* Pods-homelightsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +665,7 @@
 		};
 		9C30ACAA22518B8C00E5EEB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22A28218F7E7145B15D11CD2 /* Pods-homelightsUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +686,7 @@
 		};
 		9C30ACAB22518B8C00E5EEB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD216C8A5307343048EAB1F7 /* Pods-homelightsUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

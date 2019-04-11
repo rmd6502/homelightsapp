@@ -13,7 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
 
-
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        let appDefaults : [String:Any] = [
+            "baseMqttClient": "777",
+            "mqttHost": "192.168.1.105",
+            "rooms": ["kitchen", "livingroom", "bedroom"],
+        ]
+        UserDefaults.standard.register(defaults: appDefaults)
+        return true
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let splitViewController = window!.rootViewController as! UISplitViewController
