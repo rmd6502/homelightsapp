@@ -44,8 +44,6 @@ class MQTTHandler: NSObject {
     }
 
     @objc func reconnect() {
-        self.delegate?.didDisconnect()
-        self.mqtt?.disconnect()
         connectMqtt()
     }
 
@@ -54,6 +52,9 @@ class MQTTHandler: NSObject {
             if self.mqtt != nil && self.mqtt?.host == host && self.mqtt?.connState != CocoaMQTTConnState.disconnected {
                 return
             }
+            self.delegate?.didDisconnect()
+            self.mqtt?.disconnect()
+
             self.mqtt = CocoaMQTT(clientID:(UserDefaults.standard.string(forKey: "baseMqttClient") ?? "777") + UUID().uuidString, host: host)
 
             self.mqtt?.didConnectAck = {

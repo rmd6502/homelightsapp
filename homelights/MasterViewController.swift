@@ -10,14 +10,14 @@ import UIKit
 
 let ColorNotification = NSNotification.Name(rawValue: "ColorChanged")
 
-class MasterViewController: UITableViewController, MQTTHandlerDelegate {
+class MasterViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MQTTHandlerDelegate {
     func didConnect() {
-        self.tableView.allowsSelection = true
+        self.collectionView.allowsSelection = true
         self.spinner.stopAnimating()
     }
 
     func didDisconnect() {
-        self.tableView.allowsSelection = false
+        self.collectionView.allowsSelection = false
         self.spinner.startAnimating()
     }
 
@@ -30,9 +30,9 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.tableView.allowsSelection = false
-        self.tableView.addSubview(spinner)
-        spinner.center = self.tableView.center
+        self.collectionView.allowsSelection = false
+        self.collectionView.addSubview(spinner)
+        spinner.center = self.collectionView.center
         spinner.startAnimating()
         mqtt.delegate = self
         navigationItem.leftBarButtonItem = editButtonItem
@@ -52,15 +52,15 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         if !objects.contains(label) {
             self.mqtt.addRoom(room: label)
             objects.insert(label, at: 0)
-            let indexPath = IndexPath(row: 0, section: 0)
-            tableView.insertRows(at: [indexPath], with: .automatic)
+            //let indexPath = IndexPath(item: 0, section: 0)
+            //collectionView.insertItems(at: [indexPath])
         }
     }
 
     @objc
     func colorChanged(notification : Notification) {
         DispatchQueue.main.async(execute: {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         })
     }
 
@@ -82,8 +82,10 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
+            if let indexPaths = collectionView.indexPathsForSelectedItems {
+                print("indexpaths \(indexPaths)")
+                let indexPath = indexPaths[0]
+                let object = objects[indexPath.item]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.mqtt = mqtt
@@ -93,40 +95,41 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         }
     }
 
-    // MARK: - Table View
+    // MARK: - Collection View
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return objects.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
 
-        cell.textLabel!.text = objects[indexPath.row]
+        (cell.viewWithTag(2) as? UILabel)?.text = objects[indexPath.row]
         if let lightColor = self.mqtt.getColor(room: objects[indexPath.row]) {
-            cell.contentView.viewWithTag(42)!.backgroundColor = lightColor
+            cell.contentView.viewWithTag(1)!.backgroundColor = lightColor
         }
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let object = objects[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        let label = cell.viewWithTag(2) as? UILabel
+        let font = label?.font
+        let itemsz = object.boundingRect(with: CGSize(width: self.view.frame.width - 60, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font!], context: nil)
+        return CGSize(width: itemsz.width + 20, height: itemsz.height + 40)
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
     }
 
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
 }
 
