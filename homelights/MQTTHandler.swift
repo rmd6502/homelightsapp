@@ -19,7 +19,7 @@ protocol MQTTHandlerDelegate {
     func didDisconnect()
 }
 class MQTTHandler: NSObject {
-    var mqtt : CocoaMQTT?
+    var mqtt : CocoaMQTT5?
     var colors = [String:UIColor]()
     var re : NSRegularExpression!
     var rooms = [String]()
@@ -56,7 +56,9 @@ class MQTTHandler: NSObject {
     }
     
     @objc func reconnect() {
-        self.delegate?.didDisconnect()
+        DispatchQueue.main.async {
+            self.delegate?.didDisconnect()
+        }
         self.mqtt?.disconnect()
         connectMqtt()
     }
@@ -67,66 +69,77 @@ class MQTTHandler: NSObject {
             if self.mqtt != nil && self.mqtt?.host == host && self.mqtt?.connState != CocoaMQTTConnState.disconnected {
                 return
             }
-            self.mqtt = CocoaMQTT(clientID:(UserDefaults.standard.string(forKey: "baseMqttClient") ?? "777") + UUID().uuidString, host: host)
-
-            self.mqtt?.didConnectAck = {
-                mqtt, connectAck in
-                print("Connected")
-                self.roomQ.async(execute: {
-                    for room in self.rooms {
-                        mqtt.subscribe("/\(room)/color")
+            
+            if (self.mqtt == nil) {
+                self.mqtt = CocoaMQTT5(clientID:(UserDefaults.standard.string(forKey: "baseMqttClient") ?? "777") + UUID().uuidString, host: host)
+                
+                self.mqtt?.didConnectAck = {
+                    mqtt, reasonCode, connectAck in
+                    print("Connected")
+                    self.roomQ.async(execute: {
+                        for room in self.rooms {
+                            mqtt.subscribe("/\(room)/color")
+                        }
+                    })
+                    DispatchQueue.main.async {
+                        self.delegate?.didConnect()
                     }
-                })
-                self.delegate?.didConnect()
-            }
-            self.mqtt?.didSubscribeTopics = {
-            (mqtt, success, failures: [String]) -> Void in
-                print("Subscribed to \(success)")
-            }
-
-            self.mqtt?.didReceiveMessage = {
-                mqtt, message, qos in
-                print("message \(message.topic)")
-                do {
-                    let result = self.re.matches(in: message.topic, range: NSRange(location: 0, length: message.topic.count))
-                    if result.count > 0 {
-                        let sr = result[0].range(at: 1)
-                        let room = NSString(string: message.topic).substring(with: sr)
-                        print("room \(room)")
-                        let decoder = JSONDecoder()
-                        decoder.nonConformingFloatDecodingStrategy = JSONDecoder.NonConformingFloatDecodingStrategy.convertFromString(positiveInfinity: "Inf", negativeInfinity: "-Inf", nan: "NaN")
-                        let response = try decoder.decode(Color.self, from: Data(message.payload))
-                        print("message data \(response)")
-                        var colorVal : UInt32 = 0
-                        print("color Val \(response.color.dropFirst(1))")
-                        Scanner(string: String(response.color.dropFirst(1))).scanHexInt32(&colorVal)
-                        print("colorVal \(colorVal)")
-                        var r,g,b : CGFloat
-                        r = CGFloat(colorVal >> 16) / 255.0
-                        g = CGFloat(colorVal >> 8 & 255) / 255.0
-                        b = CGFloat(colorVal & 255) / 255.0
-                        let fullColor = UIColor(red: r, green: g, blue: b, alpha: 1)
-                        var hue: CGFloat = 0, saturation: CGFloat = 0, bright: CGFloat = 0, alpha : CGFloat = 0
-                        fullColor.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha)
-                        let resultColor = UIColor(hue: hue, saturation: saturation, brightness: CGFloat(response.brightness), alpha: 1)
-                        NotificationCenter.default.post(name: ColorNotification, object: nil)
-                        self.colors[room] = resultColor
+                }
+                self.mqtt?.didSubscribeTopics = {
+                    (mqtt, dict, success, failures) -> Void in
+                    print("Subscribed to \(success)")
+                }
+                
+                self.mqtt?.didReceiveMessage = {
+                    mqtt, message, qos, suback in
+                    print("message \(message.topic)")
+                    do {
+                        let result = self.re.matches(in: message.topic, range: NSRange(location: 0, length: message.topic.count))
+                        if result.count > 0 {
+                            let sr = result[0].range(at: 1)
+                            let room = NSString(string: message.topic).substring(with: sr)
+                            print("room \(room)")
+                            let decoder = JSONDecoder()
+                            decoder.nonConformingFloatDecodingStrategy = JSONDecoder.NonConformingFloatDecodingStrategy.convertFromString(positiveInfinity: "Inf", negativeInfinity: "-Inf", nan: "NaN")
+                            let response = try decoder.decode(Color.self, from: Data(message.payload))
+                            print("message data \(response)")
+                            var colorVal : UInt32 = 0
+                            print("color Val \(response.color.dropFirst(1))")
+                            Scanner(string: String(response.color.dropFirst(1))).scanHexInt32(&colorVal)
+                            print("colorVal \(colorVal)")
+                            var r,g,b : CGFloat
+                            r = CGFloat(colorVal >> 16) / 255.0
+                            g = CGFloat(colorVal >> 8 & 255) / 255.0
+                            b = CGFloat(colorVal & 255) / 255.0
+                            let fullColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+                            var hue: CGFloat = 0, saturation: CGFloat = 0, bright: CGFloat = 0, alpha : CGFloat = 0
+                            fullColor.getHue(&hue, saturation: &saturation, brightness: &bright, alpha: &alpha)
+                            let resultColor = UIColor(hue: hue, saturation: saturation, brightness: CGFloat(response.brightness), alpha: 1)
+                            NotificationCenter.default.post(name: ColorNotification, object: nil)
+                            self.colors[room] = resultColor
+                        }
+                    } catch {
+                        print(error)
+                        print("\(String(describing: message.string))")
                     }
-                } catch {
-                    print(error)
-                    print("\(String(describing: message.string))")
+                }
+                
+                self.mqtt?.didDisconnect = {
+                    mqtt, error in
+                    print("Disconnected \(String(describing: error))")
+                    DispatchQueue.main.async {
+                        self.delegate?.didDisconnect()
+                    }
+                    if !self.disconnecting {
+                        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now().advanced(by: .seconds(10))) {
+                            self.connectMqtt()
+                        }
+                    }
                 }
             }
-
-            self.mqtt?.didDisconnect = {
-                mqtt, error in
-                print("Disconnected \(String(describing: error))")
-                self.delegate?.didDisconnect()
-                if !self.disconnecting {
-                    self.connectMqtt()
-                }
+            if !(self.mqtt?.connect(timeout: 10.0) ?? false) {
+                print("Failed to request connection")
             }
-            self.mqtt?.connect()
         }
     }
 
@@ -168,7 +181,7 @@ class MQTTHandler: NSObject {
         do { try packetData = JSONEncoder().encode(packet) }
         catch { return }
         if let stringPacket = String(bytes: packetData, encoding: String.Encoding.utf8) {
-            mqtt?.publish("/\(room)/color", withString: stringPacket, qos: CocoaMQTTQoS.qos0, retained: true)
+            mqtt?.publish("/\(room)/color", withString: stringPacket, qos: CocoaMQTTQoS.qos0, retained: true, properties: MqttPublishProperties())
         }
     }
 

@@ -1,0 +1,26 @@
+PODS:
+  - CocoaMQTT (2.0.9):
+    - CocoaMQTT/Core (= 2.0.9)
+  - CocoaMQTT/Core (2.0.9):
+    - MqttCocoaAsyncSocket (~> 1.0.8)
+  - FlexColorPicker (1.4.4)
+  - MqttCocoaAsyncSocket (1.0.8)
+
+DEPENDENCIES:
+  - CocoaMQTT
+  - FlexColorPicker
+
+SPEC REPOS:
+  trunk:
+    - CocoaMQTT
+    - FlexColorPicker
+    - MqttCocoaAsyncSocket
+
+SPEC CHECKSUMS:
+  CocoaMQTT: 76904ac6102297972e1a42343dd77a6da3862a69
+  FlexColorPicker: ce72e0a9e0870815a0beba419ac3e09913401624
+  MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
+
+PODFILE CHECKSUM: e4eff7978b79ce303dd4d27eb7bd952b17eeff91
+
+COCOAPODS: 1.11.3
