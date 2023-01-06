@@ -24,7 +24,7 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
 
     var detailViewController: DetailViewController? = nil
     var objects = [String]()
-    let mqtt = MQTTHandler()
+    var mqtt : MQTTHandler? = nil
     let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
 
     override func viewDidLoad() {
@@ -34,7 +34,8 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         self.tableView.addSubview(spinner)
         spinner.center = self.tableView.center
         spinner.startAnimating()
-        mqtt.delegate = self
+        mqtt = MQTTHandler()
+        mqtt?.delegate = self
         navigationItem.leftBarButtonItem = editButtonItem
 
         setTitleAndRooms()
@@ -50,7 +51,7 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
     @objc
     func insertNewObject(_ label: String) {
         if !objects.contains(label) {
-            self.mqtt.addRoom(room: label)
+            self.mqtt?.addRoom(room: label)
             objects.insert(label, at: 0)
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
@@ -107,7 +108,7 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         cell.textLabel!.text = objects[indexPath.row]
-        if let lightColor = self.mqtt.getColor(room: objects[indexPath.row]) {
+        if let lightColor = self.mqtt?.getColor(room: objects[indexPath.row]) {
             cell.contentView.viewWithTag(42)!.backgroundColor = lightColor
         }
         return cell

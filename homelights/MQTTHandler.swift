@@ -25,6 +25,7 @@ class MQTTHandler: NSObject {
     var rooms = [String]()
     let roomQ = DispatchQueue(label: "roomHandler")
     var disconnecting = false
+    var host : String?
 
     var delegate : MQTTHandlerDelegate? {
         didSet {
@@ -40,9 +41,20 @@ class MQTTHandler: NSObject {
         } catch {}
         super.init()
         connectMqtt()
-        NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            forName: UserDefaults.didChangeNotification,
+            object: nil,
+            queue: OperationQueue(),
+            using: { notification in
+                if let host = UserDefaults.standard.string(forKey: "mqttHost") {
+                    if host != self.host { self.reconnect() }
+                } else {
+                    self.reconnect()
+                }
+            }
+        )
     }
-
+    
     @objc func reconnect() {
         self.delegate?.didDisconnect()
         self.mqtt?.disconnect()
@@ -51,6 +63,7 @@ class MQTTHandler: NSObject {
 
     func connectMqtt() {
         if let host = UserDefaults.standard.string(forKey: "mqttHost") {
+            self.host = host
             if self.mqtt != nil && self.mqtt?.host == host && self.mqtt?.connState != CocoaMQTTConnState.disconnected {
                 return
             }
@@ -66,9 +79,9 @@ class MQTTHandler: NSObject {
                 })
                 self.delegate?.didConnect()
             }
-            self.mqtt?.didSubscribeTopic = {
-                mqtt, topic in
-                print("Subscribed to \(topic)")
+            self.mqtt?.didSubscribeTopics = {
+            (mqtt, success, failures: [String]) -> Void in
+                print("Subscribed to \(success)")
             }
 
             self.mqtt?.didReceiveMessage = {
@@ -155,7 +168,7 @@ class MQTTHandler: NSObject {
         do { try packetData = JSONEncoder().encode(packet) }
         catch { return }
         if let stringPacket = String(bytes: packetData, encoding: String.Encoding.utf8) {
-            mqtt?.publish("/\(room)/color", withString: stringPacket, qos: CocoaMQTTQOS.qos0, retained: true)
+            mqtt?.publish("/\(room)/color", withString: stringPacket, qos: CocoaMQTTQoS.qos0, retained: true)
         }
     }
 

@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         let appDefaults : [String:Any] = [
             "baseMqttClient": "777",
-            "mqttHost": "192.168.1.105",
-            "rooms": ["kitchen", "livingroom", "bedroom"],
+            "mqttHost": "192.168.0.66",
+            "rooms": ["kitchen", "tron", "bedroom"],
         ]
         UserDefaults.standard.register(defaults: appDefaults)
         return true
