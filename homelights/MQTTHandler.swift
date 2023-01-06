@@ -66,13 +66,14 @@ class MQTTHandler: NSObject {
     func connectMqtt() {
         if let host = UserDefaults.standard.string(forKey: "mqttHost") {
             self.host = host
+            self.mqtt?.host = host
             if self.mqtt != nil && self.mqtt?.host == host && self.mqtt?.connState != CocoaMQTTConnState.disconnected {
                 return
             }
             
             if (self.mqtt == nil) {
-                self.mqtt = CocoaMQTT5(clientID:(UserDefaults.standard.string(forKey: "baseMqttClient") ?? "777") + UUID().uuidString, host: host)
-                
+                self.mqtt = CocoaMQTT5(clientID:(UserDefaults.standard.string(forKey: "baseMqttClient") ?? "777") + UUID().uuidString, host: host, port: 1883)
+                self.mqtt?.logLevel = .debug
                 self.mqtt?.didConnectAck = {
                     mqtt, reasonCode, connectAck in
                     print("Connected")
@@ -137,7 +138,7 @@ class MQTTHandler: NSObject {
                     }
                 }
             }
-            if !(self.mqtt?.connect(timeout: 10.0) ?? false) {
+            if !(self.mqtt?.connect(timeout: 9.0) ?? false) {
                 print("Failed to request connection")
             }
         }

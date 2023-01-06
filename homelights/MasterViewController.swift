@@ -25,7 +25,7 @@ class MasterViewController: UITableViewController, MQTTHandlerDelegate {
     var detailViewController: DetailViewController? = nil
     var objects = [String]()
     var mqtt : MQTTHandler? = nil
-    let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+    let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
 
     override func viewDidLoad() {
         super.viewDidLoad()
